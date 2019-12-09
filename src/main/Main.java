@@ -7,7 +7,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        new Main().run();
+        new Main().run0();
     }
 
     private void run() {
@@ -49,7 +49,7 @@ public class Main {
         System.out.println(finish-start);
     }
 
-    //TODO don't works
+    // Now it's correct
     private void run0() {
         List<Integer> list = new ArrayList<>(Arrays.asList(
                 3, 1, 2, 3, 4, 6, 7, 0, -3, 4, -7, 11, -11, 23, -16, 10
@@ -57,24 +57,24 @@ public class Main {
         int x = new Scanner(System.in).nextInt();
         int left = 0;
         int right = list.size() - 1;
-        while (left < right) {
+        do {
             int a;
-            for (; ; ) {
+            do {
                 a = list.get(left);
                 if (a < x) left++;
-                else break;
-            }
-
+            } while (a < x);
             int b;
-            for (; ; ) {
+            do {
                 b = list.get(right);
-                if (b >= x) right--;
-                else break;
+                if (b > x) right--;
+            } while (b > x);
+            if (left <= right) {
+                int t = list.get(left);
+                list.set(left,list.get(right));
+                list.set(right,t);
+                left++; right--;
             }
-            list.set(left, b);
-            list.set(right, a);
-            //left++; right--;
-        }
+        } while (left <= right);
         System.out.println(list);
     }
 }
